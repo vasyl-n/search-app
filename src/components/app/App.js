@@ -3,6 +3,7 @@ import './App.css';
 import Search from '../search/Search'
 import ChooseType from '../type/ChooseType'
 import data from '../../data/products.json'
+import Trie from 'trie-search'
 
 class App extends Component {
   constructor(props) {
@@ -15,38 +16,44 @@ class App extends Component {
     }
   }
 
-  handleInputChange = (e) => {
-    this.setState({searchVal: e.target.value})
-    this.search(e.target.value)
+  componentDidMount() {
+    const products = data.products
+
+    const ts = new Trie(['name'],  {indexField: 'name'});
+    ts.addAll(products);
+
+    this.setState({data: data.products, ts})
+    const types = this.getAvailableTypes(products)
+    const typesObj = this.makeTypesObject(types)
+
+    this.setState({types, typesObj})
   }
 
-  search = (val) => {
+  handleInputChange = (e) => {
+    this.setState({searchVal: e.target.value})
+    this.search(e.target.value, this.state.typesObj)
+  }
+
+  search = (val, typesObj) => {
     if ( !val ) {
       this.setState({types: [], results: []})
       return 
     }
+    var results = this.state.ts.get([val])
 
-    let results = data.products
-    val = val.toLowerCase()
-
-    const types = this.getAvailableTypes(results)
-    const typesObj = this.makeTypesObject(types)
     results = results.filter((el) => {
-      return el.name.toLowerCase().indexOf(val) >= 0 && typesObj[el.type] === true
+      return typesObj[el.type] === true
     })
-    this.setState({results, types})
+    this.setState({results})
   }
 
   getAvailableTypes = (results) => {
-    if ( this.state.types.length > 0 ) {
-      return this.state.types
-    }
     let uniqueTypes = new Set()
     results.forEach((el) => {
       uniqueTypes.add(el.type)
     })
     let typesArray = Array.from(uniqueTypes)
-    var typesResult = typesArray.reduce((acc, el) => {
+    var types = typesArray.reduce((acc, el) => {
       let newType = {
         name: el,
         checked: true,
@@ -54,7 +61,7 @@ class App extends Component {
       acc.push(newType)
       return acc
     }, [])
-    return typesResult
+    return types
   }
 
   handleCheckboxChange = (indx) => {
@@ -62,7 +69,8 @@ class App extends Component {
     let type = types[indx]
     type.checked = !type.checked
     this.setState(types)
-    this.search(this.state.searchVal)
+    const typesObj = this.makeTypesObject(types)
+    this.search(this.state.searchVal, typesObj)
   } 
 
   makeTypesObject = (types) => {
