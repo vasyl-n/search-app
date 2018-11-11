@@ -7,8 +7,8 @@ const Search = (props) => {
       <input onChange={props.handleChange}></input>
       <div className="results">
         {
-          props.results.map((el) => {
-            return <div className="result-value">{el.name}</div>
+          props.results.map((el, indx) => {
+            return <div key={indx} className="result-value">{el.name}</div>
           })
         }
       </div>

@@ -14,11 +14,15 @@ class App extends Component {
 
   handleInputChange = (e) => {
     this.setState({searchVal: e.target.value})
-    this.search()
+    this.search(e.target.value)
   }
 
   search = (val) => {
     var results = data.products
+    val = val.toLowerCase()
+    results = results.filter((el) => {
+      return el.name.toLowerCase().indexOf(val) >= 0
+    })
     this.setState({results})
   }
 
