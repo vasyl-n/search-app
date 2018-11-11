@@ -4,9 +4,13 @@ import './ChooseType.css'
 const ChooseType = (props) => {
   return (
     <div className="choose-type-container">
+    {
+      props.types.length > 0 &&
       <div className="type-header">
         Select Product Type:
       </div>
+    }
+
       <div className="r-buttons">
         {
           props.types.map((el, indx) => {

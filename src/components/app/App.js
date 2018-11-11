@@ -11,11 +11,8 @@ class App extends Component {
       searchVal: '',
       results: [],
       types: [],
+      typesState: {},
     }
-  }
-
-  componentDidMount() {
-   
   }
 
   handleInputChange = (e) => {
@@ -24,16 +21,27 @@ class App extends Component {
   }
 
   search = (val) => {
+    console.log(val)
+    if ( !val ) {
+      this.setState({types: [], results: []})
+      return 
+    }
+
     let results = data.products
     val = val.toLowerCase()
+
+    const types = this.getAvailableTypes(results)
+    const typesObj = this.makeTypesObject(types)
     results = results.filter((el) => {
-      return el.name.toLowerCase().indexOf(val) >= 0
+      return el.name.toLowerCase().indexOf(val) >= 0 && typesObj[el.type] === true
     })
-    this.setState({results})
-    this.getAvailableTypes(results)
+    this.setState({results, types})
   }
 
   getAvailableTypes = (results) => {
+    if ( this.state.types.length > 0 ) {
+      return this.state.types
+    }
     let uniqueTypes = new Set()
     results.forEach((el) => {
       uniqueTypes.add(el.type)
@@ -42,12 +50,12 @@ class App extends Component {
     var typesResult = typesArray.reduce((acc, el) => {
       let newType = {
         name: el,
-        checked: false
+        checked: true,
       }
       acc.push(newType)
       return acc
     }, [])
-    this.setState({types: typesResult})
+    return typesResult
   }
 
   handleCheckboxChange = (indx) => {
@@ -55,15 +63,27 @@ class App extends Component {
     let type = types[indx]
     type.checked = !type.checked
     this.setState(types)
+    this.search(this.state.searchVal)
   } 
 
+  makeTypesObject = (types) => {
+    var typesObj = types.reduce((acc, el) => {
+      acc[el.name] = el.checked
+      return acc
+    }, {})
+    return typesObj
+  }
+
+  handleClick = (val) => {
+    this.setState({searchVal: val, types: [], results: []})
+  }
+
   render() {
-    // console.log(this.state)
     return (
       <div className="App">
         <div className="header">Search</div>
         <div className="app-container">
-          <Search handleChange={this.handleInputChange} results={this.state.results} />
+          <Search handleClick={this.handleClick} value={this.state.searchVal} handleChange={this.handleInputChange} results={this.state.results} />
           <ChooseType types={this.state.types} handleChange={this.handleCheckboxChange} />
         </div>
       </div>
