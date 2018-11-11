@@ -15,7 +15,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getAvailableTypes()
+   
   }
 
   handleInputChange = (e) => {
@@ -24,29 +24,51 @@ class App extends Component {
   }
 
   search = (val) => {
-    var results = data.products
+    let results = data.products
     val = val.toLowerCase()
     results = results.filter((el) => {
       return el.name.toLowerCase().indexOf(val) >= 0
     })
     this.setState({results})
+    this.getAvailableTypes(results)
   }
 
-  getAvailableTypes = () => {
-
+  getAvailableTypes = (results) => {
+    let uniqueTypes = new Set()
+    results.forEach((el) => {
+      uniqueTypes.add(el.type)
+    })
+    let typesArray = Array.from(uniqueTypes)
+    var typesResult = typesArray.reduce((acc, el) => {
+      let newType = {
+        name: el,
+        checked: false
+      }
+      acc.push(newType)
+      return acc
+    }, [])
+    this.setState({types: typesResult})
   }
+
+  handleCheckboxChange = (indx) => {
+    let types = this.state.types
+    let type = types[indx]
+    type.checked = !type.checked
+    this.setState(types)
+  } 
 
   render() {
+    // console.log(this.state)
     return (
       <div className="App">
         <div className="header">Search</div>
         <div className="app-container">
-          <ChooseType types={this.state.types} />
           <Search handleChange={this.handleInputChange} results={this.state.results} />
+          <ChooseType types={this.state.types} handleChange={this.handleCheckboxChange} />
         </div>
       </div>
     );
   }
 }
 
-export default App;
+export default App
