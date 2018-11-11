@@ -11,7 +11,7 @@ const ChooseType = (props) => {
       </div>
     }
 
-      <div className="r-buttons">
+      <div className="checkboxes">
         {
           props.types.map((el, indx) => {
             return (

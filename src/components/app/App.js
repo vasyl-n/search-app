@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   search = (val) => {
-    console.log(val)
     if ( !val ) {
       this.setState({types: [], results: []})
       return 

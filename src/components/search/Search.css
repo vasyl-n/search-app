@@ -2,10 +2,22 @@
   background-color: lightgrey;
 }
 
+.text-field {
+  height: 20px;
+  width: 80%;
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
 .search-container {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   flex: 2;
+  height: fit-content;
+}
+
+.result-value {
+  padding: 1px 5px;
 }

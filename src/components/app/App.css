@@ -13,6 +13,12 @@
   padding: 30px;
 }
 
+@media ( max-width: 600px ) {
+  .app-container {
+    flex-direction: column-reverse;
+  }
+}
+
 .App-link {
   color: #61dafb;
 }
