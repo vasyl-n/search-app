@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Search from '../search/Search'
+import ChooseType from '../type/ChooseType'
 import data from '../../data/products.json'
 
 class App extends Component {
@@ -8,8 +9,13 @@ class App extends Component {
     super(props)
     this.state = {
       searchVal: '',
-      results: []
+      results: [],
+      types: [],
     }
+  }
+
+  componentDidMount() {
+    this.getAvailableTypes()
   }
 
   handleInputChange = (e) => {
@@ -26,10 +32,18 @@ class App extends Component {
     this.setState({results})
   }
 
+  getAvailableTypes = () => {
+
+  }
+
   render() {
     return (
       <div className="App">
-        <Search handleChange={this.handleInputChange} results={this.state.results} />
+        <div className="header">Search</div>
+        <div className="app-container">
+          <ChooseType types={this.state.types} />
+          <Search handleChange={this.handleInputChange} results={this.state.results} />
+        </div>
       </div>
     );
   }

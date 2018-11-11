@@ -3,8 +3,8 @@ import './Search.css'
 
 const Search = (props) => {
   return (
-    <div>
-      <input onChange={props.handleChange}></input>
+    <div className="search-container">
+      <input placeholder="Search keyword" onChange={props.handleChange}></input>
       <div className="results">
         {
           props.results.map((el, indx) => {
