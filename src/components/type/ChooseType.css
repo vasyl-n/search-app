@@ -1,4 +1,6 @@
 .choose-type-container {
   flex: 1;
   margin: 10px;
+  margin-left: 20px;
+  color: white;
 }

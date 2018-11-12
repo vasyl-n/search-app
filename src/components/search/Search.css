@@ -1,11 +1,15 @@
 .result-value:hover {
-  background-color: lightgrey;
+  background-color: #D98107;
+  cursor: pointer;
 }
 
 .text-field {
   height: 20px;
-  width: 80%;
-  border: 1px solid;
+  width: 100%;
+  max-width: 500px;
+  padding: 2px 0;
+  border: none;
+  font-size: 16px;
 }
 
 .search-container {
@@ -17,6 +21,18 @@
   height: fit-content;
 }
 
+.search-wrapper {
+  width: 100%;
+  max-width: 500px;
+  color: white;
+}
+
 .result-value {
   padding: 1px 5px;
+}
+
+.results {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
 }
