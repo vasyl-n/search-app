@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react'
 import './Error.css'
 
-const Error = (props) => {
+const Error = () => {
   return  (
-      props.error && 
-      <div className="error"> 
-        No results were found :(
-      </div>
-)
+    <div className="error"> 
+      No results were found :(
+    </div>
+  )
 }
 
 export default Error

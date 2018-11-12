@@ -4,9 +4,11 @@
   background: #417CC9;
   height: 100vh;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-.app-container {
+.search-type-container {
   display: flex;
 }
 
@@ -19,7 +21,7 @@
 }
 
 @media ( max-width: 600px ) {
-  .app-container {
+  .search-type-container {
     flex-direction: column-reverse;
   }
 }

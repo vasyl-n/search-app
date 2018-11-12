@@ -9,7 +9,7 @@ const Search = (props) => {
         <div className="results">
           {
             props.results.map((el, indx) => {
-              return <div key={indx} onClick={() => props.handleClick(el.name)} className="result-value">{el.name}</div>
+              return <div key={indx} onClick={() => props.handleClick(el)} className="result-value">{el.name}</div>
             })
           }
         </div>

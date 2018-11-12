@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 import Search from '../search/Search'
 import Error from '../error/Error'
 import ChooseType from '../type/ChooseType'

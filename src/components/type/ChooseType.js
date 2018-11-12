@@ -10,14 +10,13 @@ const ChooseType = (props) => {
         Select Product Type:
       </div>
     }
-
       <div className="checkboxes">
         {
           props.types.map((el, indx) => {
             return (
               <div key={indx}>
                 <input onChange={() => props.handleChange(indx)} type="checkbox" checked={el.checked} id={el.name} name={el.name}/>
-                <label for={el.name}>{el.name}</label>
+                <label htmlFor={el.name}>{el.name}</label>
               </div>
             )
           })

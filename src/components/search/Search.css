@@ -7,9 +7,13 @@
   height: 20px;
   width: 100%;
   max-width: 500px;
-  padding: 2px 0;
+  padding: 4px 10px;
   border: none;
   font-size: 16px;
+}
+
+.text-field:focus {
+  outline: none;
 }
 
 .search-container {
@@ -25,6 +29,7 @@
   width: 100%;
   max-width: 500px;
   color: white;
+  overflow: hidden;
 }
 
 .result-value {
