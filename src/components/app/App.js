@@ -5,6 +5,7 @@ import Error from '../error/Error'
 import ChooseType from '../type/ChooseType'
 import data from '../../data/products.json'
 import Trie from 'trie-search'
+import Button from '../button/Button'
 
 class App extends Component {
   constructor(props) {
@@ -83,8 +84,8 @@ class App extends Component {
     return typesObj
   }
 
-  handleClick = (val) => {
-    this.setState({searchVal: val, results: [], clicked: true})
+  handleClick = (product) => {
+    this.setState({searchVal: product.name, results: [], clicked: true, url: product.url})
   }
 
   checkForError = () => {
@@ -94,12 +95,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="header">Search</div>
-        <div className="app-container">
+        <div className="header">Search for products</div>
+        <div className="search-type-container">
           <Search handleClick={this.handleClick} value={this.state.searchVal} handleChange={this.handleInputChange} results={this.state.results} />
           <ChooseType types={this.state.types} handleChange={this.handleCheckboxChange} />
         </div>
-        <Error error={this.checkForError()}/>
+        {
+          this.checkForError() && 
+          <Error />
+        }
+        {
+          this.state.clicked &&
+          <Button  url={this.state.url} />
+        }
       </div>
     )
   }
