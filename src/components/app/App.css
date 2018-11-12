@@ -3,7 +3,7 @@
   margin: 0 auto;
   background: #417CC9;
   height: 100vh;
-  overflow: auto;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
 }
