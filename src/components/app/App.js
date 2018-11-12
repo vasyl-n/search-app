@@ -33,7 +33,7 @@ class App extends Component {
   handleInputChange = (e) => {
     this.setState({searchVal: e.target.value})
 
-    // we could debounce this function
+    // We could debounce this function.
     this.search(e.target.value, this.state.typesObj)
   }
 
@@ -46,7 +46,7 @@ class App extends Component {
     this.search(this.state.searchVal, typesObj)
   } 
 
-  // get values from trie and filters them based on types selected
+  // Get values from trie and filters them based on types selected.
   search = (val, typesObj) => {
     this.setState({clicked: false})
     var results = this.state.ts.get([val])
@@ -56,7 +56,7 @@ class App extends Component {
     this.setState({results})
   }
 
-  // returns unique types from json file
+  // Returns unique types from json file.
   getAvailableTypes = (products) => {
     let uniqueTypes = new Set()
     products.forEach((el) => {
@@ -74,7 +74,7 @@ class App extends Component {
     return types
   }
 
-  //makes map of available types and their current values to be able to filter results
+  // Makes map of available types and their current values to be able to filter results.
   makeTypesObject = (types) => {
     var typesObj = types.reduce((acc, el) => {
       acc[el.name] = el.checked
